@@ -49,7 +49,7 @@ try:
     if args.samplerate is None:
         device_info = sd.query_devices(args.device, "input")
         # soundfile expects an int, sounddevice provides a float:
-        args.samplerate = int(device_info["default_samplerate"])
+        args.samplerate = int(device_info["default_samplerate"])  # type: ignore
 
     model = Model(lang="pt")
 
@@ -78,4 +78,4 @@ except KeyboardInterrupt:
     print("\nDone")
     parser.exit(0)
 except Exception as e:
-    parser.exit(type(e).__name__ + ": " + str(e))
+    parser.exit(type(e).__name__ + ": " + str(e))# type: ignore

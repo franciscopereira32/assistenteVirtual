@@ -2,12 +2,17 @@
 #!/usr/bin/env python3
 
 import argparse
+from asyncio.windows_events import NULL
+from multiprocessing.resource_sharer import stop
+from pydoc import TextRepr
 import queue
 import sys
+from tkinter.messagebox import NO
 import sounddevice as sd
 from vosk import Model, KaldiRecognizer
 import pyttsx3
 import json
+import core
 
 #sintese de fala
 engine = pyttsx3.init()
@@ -19,6 +24,8 @@ engine.setProperty('voice',voices [-2].id)
 def speak(text):
     engine.say(text)
     engine.runAndWait()
+
+#reconhecimento de fala
 
 q = queue.Queue()
 
@@ -57,6 +64,7 @@ parser.add_argument(
     "-r", "--samplerate", type=int, help="sampling rate")
 args = parser.parse_args(remaining)
 
+#loop do reconhecimento de fala
 try:
     if args.samplerate is None:
         device_info = sd.query_devices(args.device, "input")
@@ -87,7 +95,15 @@ try:
                     text = result['text']
 
                     print(text)
-                    speak(text)
+                    #speak(text)
+
+                    if text == 'que horas são' or text == 'me informe a hora':
+                        speak(core.SystemInfo.get_time())
+                    
+                    if text == 'obrigado':
+                        speak('disponha, estou aqui para te ajudar')
+                        #exit(0)
+                        
 except KeyboardInterrupt:
     print("\nDone")
     parser.exit(0)

@@ -13,6 +13,7 @@ from vosk import Model, KaldiRecognizer
 import pyttsx3
 import json
 import core
+import datetime
 
 #sintese de fala
 engine = pyttsx3.init()
@@ -100,10 +101,18 @@ try:
                     if text == 'que horas são' or text == 'me informe a hora':
                         speak(core.SystemInfo.get_time())
                     
-                    if text == 'obrigado':
-                        speak('disponha, estou aqui para te ajudar')
+                    if text == 'obrigado' or text ==  'obrigada':
+                        res_obr = 'disponha, estou aqui para te ajudar'
+                        speak(res_obr)
+                        print(res_obr)
+
                         #exit(0)
-                        
+                    
+                    if  text == 'me informe a data' or text == 'data atual':
+                        date = datetime.date.today()
+                        data_em_texto = "{}/{}/{}".format(date.day, date.month,date.year)
+                        speak(data_em_texto)  
+                        print(data_em_texto)
 except KeyboardInterrupt:
     print("\nDone")
     parser.exit(0)

@@ -47,7 +47,7 @@ parser = argparse.ArgumentParser(add_help=False)
 parser.add_argument(
     "-l", "--list-devices", action="store_true",
     help="show list of audio devices and exit")
-args, remaining = parser.parse_known_args()
+args, remaining = parser.parse_known_args()  # type: ignore
 if args.list_devices:
     print(sd.query_devices())
     parser.exit(0)
@@ -62,7 +62,7 @@ parser.add_argument(
     "-d", "--device", type=int_or_str,
     help="input device (numeric ID or substring)")
 parser.add_argument(
-    "-r", "--samplerate", type=int, help="sampling rate")
+    "-r", "--samplerate", type=int, help="sampling rate")  # type: ignore
 args = parser.parse_args(remaining)
 
 #loop do reconhecimento de fala
@@ -106,8 +106,6 @@ try:
                         speak(res_obr)
                         print(res_obr)
 
-                        #exit(0)
-                    
                     if  text == 'me informe a data' or text == 'data atual':
                         date = datetime.date.today()
                         data_em_texto = "{}/{}/{}".format(date.day, date.month,date.year)

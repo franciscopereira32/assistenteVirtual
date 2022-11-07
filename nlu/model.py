@@ -14,14 +14,16 @@ for command in data['commands']:
 chars = set()
 
 ch = inputs + outputs
+string = "".join(ch)
 
-for input in inputs + outputs:
-    if input not in ch:
-       chars.add(ch)
+#for input in inputs + outputs:
+    #if input not in ch:
+       #chars.add(ch)
 
-print(inputs)
-print(outputs)
-print('Número de chars: ', len(chars))
+#print(inputs)
+#print(outputs)
+print(ch)
+print('Número de chars: ', len(string))
 
 
 

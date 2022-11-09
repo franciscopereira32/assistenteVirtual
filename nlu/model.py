@@ -13,23 +13,33 @@ for command in data['commands']:
 
 chars = set()
 
-ch = inputs + outputs
-string = "".join(ch)
+for input in inputs + outputs:
+    for ch in input:
+        if ch not in chars:
+            chars.add(ch)
 
-#for input in inputs + outputs:
-    #if input not in ch:
-       #chars.add(ch)
+#mapear char-idx
 
-#print(inputs)
-#print(outputs)
-print(ch)
-print('Número de chars: ', len(string))
+chr2idx= {}
+idx2chr= {}
 
+for i, ch in enumerate(chars):
+    chr2idx[ch] = i 
+    idx2chr[i]  = ch
 
+#print("Numero de caracterares: ", len(chars))
+   
+max_seq = max([len(x) for x in inputs])
 
+print("Numero de cahrs: ", len(chars))
+print("Maior seq: ", max_seq)
 
+#criar dataset one-hot(numero de exemplo, tamanho da seq, num caracteres)
 
-'''
-print(inputs)
-print(outputs)
-'''
+input_data = np.zeros((len(inputs), max_seq, len(chars)), dtype='int32')     
+
+for i, input in enumerate(inputs):
+    for k, ch in enumerate(input):
+        input_data[i, k, chr2idx[ch]] = 1.0
+
+print(input_data[0])
